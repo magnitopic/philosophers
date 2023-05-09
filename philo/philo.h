@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/05/08 17:03:35 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/05/09 17:20:14 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,25 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <pthread.h>
 
 typedef struct s_philo
 {
-	int	philo_num;
+	int				num;
+	pthread_t		thread;
+	pthread_mutex_t	*fork_r;
+	pthread_mutex_t	fork_l;
 }	t_philo;
 
-typedef struct s_program
+typedef struct s_data
 {
-	int	time_die;
-	int	time_eat;
-	int	time_sleep;
-	int	amount_eat;
-}	t_program;
+	int		n_philo;
+	int		t_die;
+	int		t_eat;
+	int		t_sleep;
+	int		n_eat;
+	t_philo	*philos;
+}	t_data;
 
 int		raise_error(char *message);
 int		ft_atoi(const char *str);

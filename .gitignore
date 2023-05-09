@@ -1,5 +1,6 @@
 .vscode
-*.a
+*.out
 *.o
 philo
 !/philo
+test.c
