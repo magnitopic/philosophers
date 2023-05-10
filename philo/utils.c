@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/05/08 17:08:03 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/05/10 17:42:43 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,18 @@ int	ft_atoi(const char *str)
 	else if (num > 9223372036854775807 && sign == -1)
 		return (0);
 	return (sign * num);
+}
+
+int	ft_isdigit(char *c)
+{
+	int	i;
+
+	i = 0;
+	while (c[i])
+	{
+		if (c[i] < '0' || c[i] > '9')
+			return (0);
+		i++;
+	}
+	return (1);
 }
