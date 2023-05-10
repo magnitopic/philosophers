@@ -1,8 +1,9 @@
 # philosophers
 NAME				=	philo
 
-PHILO_SRC			=	philo/utils.c \
-						philo/philo.c
+PHILO_SRC			=	./utils.c \
+						./args.c \
+						./philo.c
 OBJS				=	$(PHILO_SRC:.c=.o)
 
 # Compiler
@@ -24,7 +25,7 @@ RESET				=	\033[0m
 all:		$(NAME)
 			@printf "$(BLUE)==> $(CYAN)Philosophers compiled ✅\n\n$(RESET)"
 
-$(NAME)):
+$(NAME):	$(OBJS)
 			@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean:

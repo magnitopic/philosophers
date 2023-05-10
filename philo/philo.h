@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/05/09 17:20:14 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/05/10 16:37:15 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ typedef struct s_data
 
 int		raise_error(char *message);
 int		ft_atoi(const char *str);
+int		error_check(int argc, char **argv);
 
 #endif
