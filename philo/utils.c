@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/05/10 17:42:43 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/05/10 18:23:09 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ int	ft_isdigit(char *c)
 			return (0);
 		i++;
 	}
+	if (i > 10)
+		return (0);
 	return (1);
 }
