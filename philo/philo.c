@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/05/11 17:42:59 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:11:03 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static t_philo	*create_philos(t_data *data)
 	{
 		philos[i].pos = i + 1;
 		philos[i].times_eaten = 0;
+		pthread_mutex_init(&philos[i].fork_l, NULL);
 	}
 	return (philos);
 }

@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/05/11 17:41:06 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/05/11 18:06:22 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ typedef struct s_philo
 {
 	int				pos;
 	int				times_eaten;
+	pthread_mutex_t	fork_l;
 	pthread_mutex_t	*fork_r;
-	pthread_mutex_t	*fork_l;
 }	t_philo;
 
 typedef struct s_data
