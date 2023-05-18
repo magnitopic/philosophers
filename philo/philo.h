@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/05/11 18:06:22 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:46:09 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <pthread.h>
+# include <sys/time.h>
 
 typedef struct s_philo
 {
@@ -23,16 +24,19 @@ typedef struct s_philo
 	int				times_eaten;
 	pthread_mutex_t	fork_l;
 	pthread_mutex_t	*fork_r;
+	t_data			*data;
 }	t_philo;
 
 typedef struct s_data
 {
-	int		n_philos;
-	int		t_die;
-	int		t_eat;
-	int		t_sleep;
-	int		n_eat;
-	t_philo	*philos;
+	int				n_philos;
+	int				t_die;
+	int				t_eat;
+	int				t_sleep;
+	int				n_eat;
+	int				start_time;
+	t_philo			*philos;
+	pthread_mutex_t	message;
 }	t_data;
 
 int		raise_error(char *message);

@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:24:31 by alaparic          #+#    #+#             */
-/*   Updated: 2023/05/10 17:39:20 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/05/16 16:17:48 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static int	error_message(int n)
 
 int	error_check(int argc, char **argv)
 {
-	(void)argv;
 	if (argc < 5 || argc > 6)
 		return (error_message(1));
 	if (!ft_isdigit(argv[1]))

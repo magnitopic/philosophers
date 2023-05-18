@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/05/10 18:23:09 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:52:44 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,19 @@ int	ft_isdigit(char *c)
 	if (i > 10)
 		return (0);
 	return (1);
+}
+
+void	print_action(t_philo philo, long timestamp, int opt)
+{
+	pthread_mutex_lock(&philo->table->message);
+	printf("%d %d ", timestamp, philo_n);
+	if (opt == 1)
+		printf("has taken a fork\n");
+	else if (opt == 2)
+		printf("is eating\n");
+	else if (opt == 3)
+		printf("is sleeping\n");
+	else if (opt == 4)
+		printf("is thinking\n");
+	pthread_mutex_unlock(&philo->table->message);
 }

@@ -6,13 +6,13 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/05/11 18:11:03 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/05/18 17:52:55 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static t_philo	*create_philos(t_data *data)
+/* static t_philo	*create_philos(t_data *data, t_philo )
 {
 	t_philo	*philos;
 	int		i;
@@ -26,7 +26,9 @@ static t_philo	*create_philos(t_data *data)
 		philos[i].pos = i + 1;
 		philos[i].times_eaten = 0;
 		pthread_mutex_init(&philos[i].fork_l, NULL);
+		i++;
 	}
+	
 	return (philos);
 }
 
@@ -40,15 +42,15 @@ static int	start_data(char **argv, t_data *data)
 		data->n_eat = ft_atoi(argv[5]);
 	else
 		data->n_eat = 0;
-	data->philos = create_philos(data);
 	if (!data->philos)
 		return (0);
 	return (1);
-}
+} */
 
 int	main(int argc, char **argv)
 {
 	t_data	*data;
+	t_philo	*philos;
 
 	(void)argv;
 	if (error_check(argc, argv))
@@ -58,5 +60,8 @@ int	main(int argc, char **argv)
 		return (1);
 	if (!start_data(argv, data))
 		return (1);
+	philos = create_philos(data, philos);
+	/* if (!philos)
+		return (1); */
 	return (0);
 }
