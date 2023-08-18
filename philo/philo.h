@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/05/18 17:46:09 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/18 14:23:49 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,19 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+/* Enum */
+
+enum e_mssg
+{
+	FORK,
+	EAT,
+	SLEEP,
+	THINK,
+	DIE
+};
+
+/* Structs */
+
 typedef struct s_philo
 {
 	int				pos;
@@ -27,7 +40,7 @@ typedef struct s_philo
 	t_data			*data;
 }	t_philo;
 
-typedef struct s_data
+typedef struct s_universe
 {
 	int				n_philos;
 	int				t_die;
@@ -37,7 +50,9 @@ typedef struct s_data
 	int				start_time;
 	t_philo			*philos;
 	pthread_mutex_t	message;
-}	t_data;
+}	t_universe;
+
+/* Functions */
 
 int		raise_error(char *message);
 int		ft_atoi(const char *str);

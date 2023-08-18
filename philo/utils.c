@@ -6,16 +6,27 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/05/18 17:52:44 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/18 14:23:11 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	raise_error(char *message)
+void	print_message(t_philo *philo, enum e_mssg mssg)
 {
-	printf("\033[0;31mError\n%s\n\033[0m", message);
-	return (-1);
+	int	time;
+
+	time = get_cur_time();
+	if (mssg == FORK)
+		printf("%d %d \033[0;36has taken a fork\033[0m 🍴\n", time, philo->pos);
+	if (mssg == EAT)
+		printf("%d %d \033[0;33is eating\033[0m 🍝\n", time, philo->pos);
+	if (mssg == SLEEP)
+		printf("%d %d \033[0;34is sleeping\033[0m 💤\n", time, philo->pos);
+	if (mssg == THINK)
+		printf("%d %d \033[0;32is thinking\033[0m 💭\n", time, philo->pos);
+	if (mssg == DIE)
+		printf("%d %d \033[0;31mdied\033[0m\n", time, philo->pos);
 }
 
 int	ft_atoi(const char *str)
@@ -59,19 +70,4 @@ int	ft_isdigit(char *c)
 	if (i > 10)
 		return (0);
 	return (1);
-}
-
-void	print_action(t_philo philo, long timestamp, int opt)
-{
-	pthread_mutex_lock(&philo->table->message);
-	printf("%d %d ", timestamp, philo_n);
-	if (opt == 1)
-		printf("has taken a fork\n");
-	else if (opt == 2)
-		printf("is eating\n");
-	else if (opt == 3)
-		printf("is sleeping\n");
-	else if (opt == 4)
-		printf("is thinking\n");
-	pthread_mutex_unlock(&philo->table->message);
 }
