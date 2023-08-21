@@ -24,8 +24,16 @@ make
 ./philo "number_of_philos" "time_to_die" "time_to_eat" "time_to_sleep" "times_a_philo_must_eat(optional)"
 ```
 
-_Example:_
+### Examples
+
+Normal execution
 
 ```bash
 ./philo 5 800 200 200
+```
+
+Every philo will eat 50 times
+
+```bash
+./philo 5 800 200 200 50
 ```
