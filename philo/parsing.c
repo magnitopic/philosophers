@@ -6,11 +6,27 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:24:31 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/18 13:04:30 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/21 12:32:43 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static int	ft_isdigit(char *c)
+{
+	int	i;
+
+	i = 0;
+	while (c[i])
+	{
+		if (c[i] < '0' || c[i] > '9')
+			return (0);
+		i++;
+	}
+	if (i > 10)
+		return (0);
+	return (1);
+}
 
 static int	error_message(int n)
 {
@@ -33,7 +49,7 @@ static int	error_message(int n)
 	return (1);
 }
 
-int	error_check(int argc, char **argv)
+int	parsing(int argc, char **argv)
 {
 	if (argc < 5 || argc > 6)
 		return (error_message(1));

@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/18 14:23:11 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/21 12:32:34 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ void	print_message(t_philo *philo, enum e_mssg mssg)
 {
 	int	time;
 
-	time = get_cur_time();
+	time = 5;
 	if (mssg == FORK)
-		printf("%d %d \033[0;36has taken a fork\033[0m 🍴\n", time, philo->pos);
-	if (mssg == EAT)
-		printf("%d %d \033[0;33is eating\033[0m 🍝\n", time, philo->pos);
-	if (mssg == SLEEP)
-		printf("%d %d \033[0;34is sleeping\033[0m 💤\n", time, philo->pos);
-	if (mssg == THINK)
-		printf("%d %d \033[0;32is thinking\033[0m 💭\n", time, philo->pos);
-	if (mssg == DIE)
-		printf("%d %d \033[0;31mdied\033[0m\n", time, philo->pos);
+		printf("%d %d\033[0;36m has taken a fork\033[0m 🍴\n", time, philo->pos);
+	else if (mssg == EAT)
+		printf("%d %d\033[0;33m is eating\033[0m 🍝\n", time, philo->pos);
+	else if (mssg == SLEEP)
+		printf("%d %d\033[0;34m is sleeping\033[0m 💤\n", time, philo->pos);
+	else if (mssg == THINK)
+		printf("%d %d\033[0;32m is thinking\033[0m 💭\n", time, philo->pos);
+	else if (mssg == DIE)
+		printf("%d %d\033[0;31m died 💀\033[0m\n", time, philo->pos);
 }
 
 int	ft_atoi(const char *str)
@@ -54,20 +54,4 @@ int	ft_atoi(const char *str)
 	else if (num > 9223372036854775807 && sign == -1)
 		return (0);
 	return (sign * num);
-}
-
-int	ft_isdigit(char *c)
-{
-	int	i;
-
-	i = 0;
-	while (c[i])
-	{
-		if (c[i] < '0' || c[i] > '9')
-			return (0);
-		i++;
-	}
-	if (i > 10)
-		return (0);
-	return (1);
 }

@@ -1,15 +1,16 @@
 # philosophers
 NAME				=	philo
 
-PHILO_SRC			=	./utils.c \
-						./args.c \
-						./philo.c
+PHILO_SRC			=	utils.c \
+						parsing.c \
+						actions.c \
+						philo.c
 OBJS				=	$(PHILO_SRC:.c=.o)
 
 # Compiler
 CC					=	gcc
 RM					=	rm -f
-CFLAGS				=	-Wall -Werror -Wextra -pthread
+CFLAGS				=	-Wall -Werror -Wextra -pthread -g3 -fsanitize=address
 
 # Colours
 RED					=	\033[0;31m

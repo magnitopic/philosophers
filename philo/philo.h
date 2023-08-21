@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/18 14:23:49 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/21 13:20:20 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,11 @@ typedef struct s_philo
 	int				times_eaten;
 	pthread_mutex_t	fork_l;
 	pthread_mutex_t	*fork_r;
-	t_data			*data;
 }	t_philo;
 
+/**
+ * - breaker: flag for when the program ends
+*/
 typedef struct s_universe
 {
 	int				n_philos;
@@ -48,15 +50,16 @@ typedef struct s_universe
 	int				t_sleep;
 	int				n_eat;
 	int				start_time;
+	int				breaker;
 	t_philo			*philos;
-	pthread_mutex_t	message;
+	pthread_mutex_t	*message;
 }	t_universe;
 
 /* Functions */
 
+int		parsing(int argc, char **argv);
 int		raise_error(char *message);
 int		ft_atoi(const char *str);
-int		error_check(int argc, char **argv);
-int		ft_isdigit(char *c);
+void	print_message(t_philo *philo, enum e_mssg mssg);
 
 #endif
