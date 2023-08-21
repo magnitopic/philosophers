@@ -59,7 +59,8 @@ int	main(int argc, char **argv)
 	start_universe(argv, data);
 	philos = create_philos(data);
 	if (!philos)
-		return (1);
+		return (free(data) ,1);
 	free(data);
+	free(philos);
 	return (0);
 }
