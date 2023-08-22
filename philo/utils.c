@@ -6,11 +6,19 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/21 12:32:34 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/22 14:33:58 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	get_current_time(void)
+{
+	struct timeval	current_time;
+
+	gettimeofday(&current_time, NULL);
+	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
+}
 
 void	print_message(t_philo *philo, enum e_mssg mssg)
 {
