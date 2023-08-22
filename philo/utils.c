@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/22 14:33:58 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/22 19:10:32 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,19 @@ int	ft_atoi(const char *str)
 	else if (num > 9223372036854775807 && sign == -1)
 		return (0);
 	return (sign * num);
+}
+
+void	free_universe(t_universe *data, t_philo *philos)
+{
+	/* int	i;
+
+	i = 0; */
+	// TODO: Free forks
+	/* while (data->forks[i])
+	{
+		free(data->forks);
+		i++;
+	} */
+	free(data);
+	free(philos);
 }

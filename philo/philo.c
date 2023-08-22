@@ -6,11 +6,21 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/21 13:23:18 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/22 19:27:41 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	*test(void *args)
+{
+	t_universe	*data;
+
+	data = args;
+	printf("Yes\n");
+	printf("%d\n", data->t_die);
+	return (0);
+}
 
 static t_philo	*create_philos(t_universe *data)
 {
@@ -20,47 +30,73 @@ static t_philo	*create_philos(t_universe *data)
 	philos = malloc(sizeof(t_philo) * data->n_philos);
 	if (!philos)
 		return (NULL);
-	i = 0;
-	while (data->n_philos > i)
+	i = -1;
+	while (data->n_philos > ++i)
 	{
 		philos[i].pos = i + 1;
 		philos[i].times_eaten = 0;
-		pthread_mutex_init(&philos[i].fork_l, NULL);
-		i++;
+		philos[i].fork_l = i;
+		philos[i].fork_r = i + 1;
+		pthread_mutex_init(data->forks + i, NULL);
+		philos[i].life_expectancy = get_current_time() + data->t_die;
+		philos[i].universe = data;
 	}
+	data->philos = philos;
 	return (philos);
 }
 
-static void	start_universe(char **argv, t_universe *data)
+static t_universe	*start_universe(char **argv)
 {
+	t_universe	*data;
+
+	data = malloc(sizeof(t_universe));
+	if (!data)
+		return (NULL);
+	data->breaker = 0;
 	data->n_philos = ft_atoi(argv[1]);
 	data->t_die = ft_atoi(argv[2]);
 	data->t_eat = ft_atoi(argv[3]);
 	data->t_sleep = ft_atoi(argv[4]);
+	data->n_eat = -1;
 	if (argv[5])
 		data->n_eat = ft_atoi(argv[5]);
-	else
-		data->n_eat = 0;
-	data->breaker = 0;
-	//pthread_mutex_init(data->message, NULL);
+	pthread_mutex_init(&data->message, NULL);
+	pthread_mutex_init(&data->death, NULL);
+	data->forks = malloc((sizeof(pthread_mutex_t) * data->n_philos) + 1);
+	if (data->forks == NULL)
+		return (free(data), NULL);
+	data->start_time = get_current_time();
+	return (data);
 }
 
 int	main(int argc, char **argv)
 {
 	t_universe	*data;
 	t_philo		*philos;
+	int			i;
 
 	(void)argv;
 	if (parsing(argc, argv))
 		return (1);
-	data = malloc(sizeof(t_universe));
+	data = start_universe(argv);
 	if (!data)
 		return (1);
-	start_universe(argv, data);
 	philos = create_philos(data);
 	if (!philos)
-		return (free(data) ,1);
-	free(data);
-	free(philos);
+		return (free(data), 1);
+	i = -1;
+	while (++i < data->n_philos)
+	{
+		if (pthread_create(&((data->philos)[i].filo_thread),
+			NULL, &test, philos[i]))
+			return (1);
+	}
+	/* i = -1;
+	while (++i < data->n_philos)
+	{
+		if (pthread_create(&((data->philos)[i].filo_thread), NULL, &test, data))
+			return (1);
+	} */
+	free_universe(data, philos);
 	return (0);
 }

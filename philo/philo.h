@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/21 13:20:20 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/22 19:18:06 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PHILO_H
 
 # include <stdio.h>
+# include <unistd.h>
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
@@ -33,10 +34,13 @@ enum e_mssg
 
 typedef struct s_philo
 {
-	int				pos;
-	int				times_eaten;
-	pthread_mutex_t	fork_l;
-	pthread_mutex_t	*fork_r;
+	int					pos;
+	int					times_eaten;
+	int					fork_l;
+	int					fork_r;
+	int					life_expectancy;
+	pthread_t			filo_thread;
+	struct s_universe	*universe;
 }	t_philo;
 
 /**
@@ -49,10 +53,12 @@ typedef struct s_universe
 	int				t_eat;
 	int				t_sleep;
 	int				n_eat;
-	int				start_time;
 	int				breaker;
+	int				start_time;
+	pthread_mutex_t	message;
+	pthread_mutex_t	death;
 	t_philo			*philos;
-	pthread_mutex_t	*message;
+	pthread_mutex_t	*forks;
 }	t_universe;
 
 /* Functions */
@@ -61,5 +67,7 @@ int		parsing(int argc, char **argv);
 int		raise_error(char *message);
 int		ft_atoi(const char *str);
 void	print_message(t_philo *philo, enum e_mssg mssg);
+int		get_current_time(void);
+void	free_universe(t_universe *data, t_philo *philos);
 
 #endif
