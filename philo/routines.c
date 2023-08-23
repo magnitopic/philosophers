@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   actions.c                                          :+:      :+:    :+:   */
+/*   routines.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:01:22 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/23 15:01:01 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/23 18:57:31 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,19 @@
 
 void	ft_eat(t_philo *philo)
 {
+	t_universe	*universe;
+
+	universe = philo->universe;
+	pthread_mutex_lock(&universe->forks[philo->fork_l]);
 	print_message(philo, FORK);
+	pthread_mutex_lock(&universe->forks[philo->fork_r]);
 	print_message(philo, FORK);
 	print_message(philo, EAT);
 	usleep(philo->universe->t_eat * 1000);
 	philo->life_expectancy = get_current_time() + philo->universe->t_die;
 	philo->times_eaten++;
+	pthread_mutex_unlock(&universe->forks[philo->fork_l]);
+	pthread_mutex_unlock(&universe->forks[philo->fork_r]);
 }
 
 void	ft_sleep(t_philo *philo)

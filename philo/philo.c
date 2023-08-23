@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/23 12:34:14 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/23 18:53:05 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static t_philo	*create_philos(t_universe *data)
 		philos[i].times_eaten = 0;
 		philos[i].fork_l = i;
 		philos[i].fork_r = i + 1;
+		if (i + 1 == data->n_philos)
+			philos[i].fork_r = 1;
 		pthread_mutex_init(data->forks + i, NULL);
 		philos[i].life_expectancy = get_current_time() + data->t_die;
 		philos[i].universe = data;
@@ -59,26 +61,10 @@ static t_universe	*start_universe(char **argv)
 	return (data);
 }
 
-/* static void	run_simularion()
+static int	run_simulation(t_universe *data, t_philo *philos)
 {
-	
-} */
+	int	i;
 
-int	main(int argc, char **argv)
-{
-	t_universe	*data;
-	t_philo		*philos;
-	int			i;
-
-	(void)argv;
-	if (parsing(argc, argv))
-		return (1);
-	data = start_universe(argv);
-	if (!data)
-		return (1);
-	philos = create_philos(data);
-	if (!philos)
-		return (free(data), 1);
 	i = -1;
 	while (++i < data->n_philos)
 	{
@@ -92,6 +78,25 @@ int	main(int argc, char **argv)
 		if (pthread_join(((data->philos)[i].filo_thread), NULL))
 			return (1);
 	}
+	return (0);
+}
+
+int	main(int argc, char **argv)
+{
+	t_universe	*data;
+	t_philo		*philos;
+
+	(void)argv;
+	if (parsing(argc, argv))
+		return (1);
+	data = start_universe(argv);
+	if (!data)
+		return (1);
+	philos = create_philos(data);
+	if (!philos)
+		return (free(data), 1);
+	if (run_simulation(data, philos))
+		return (1);
 	free_universe(data, philos);
 	return (0);
 }
