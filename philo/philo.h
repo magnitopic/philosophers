@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/22 19:18:06 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:30:28 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_universe
 int		parsing(int argc, char **argv);
 int		raise_error(char *message);
 int		ft_atoi(const char *str);
+void	*routines(void *args);
 void	print_message(t_philo *philo, enum e_mssg mssg);
 int		get_current_time(void);
 void	free_universe(t_universe *data, t_philo *philos);

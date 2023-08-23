@@ -6,21 +6,11 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/22 19:27:41 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:34:14 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	*test(void *args)
-{
-	t_universe	*data;
-
-	data = args;
-	printf("Yes\n");
-	printf("%d\n", data->t_die);
-	return (0);
-}
 
 static t_philo	*create_philos(t_universe *data)
 {
@@ -52,7 +42,7 @@ static t_universe	*start_universe(char **argv)
 	data = malloc(sizeof(t_universe));
 	if (!data)
 		return (NULL);
-	data->breaker = 0;
+	data->breaker = 1;
 	data->n_philos = ft_atoi(argv[1]);
 	data->t_die = ft_atoi(argv[2]);
 	data->t_eat = ft_atoi(argv[3]);
@@ -68,6 +58,11 @@ static t_universe	*start_universe(char **argv)
 	data->start_time = get_current_time();
 	return (data);
 }
+
+/* static void	run_simularion()
+{
+	
+} */
 
 int	main(int argc, char **argv)
 {
@@ -88,15 +83,15 @@ int	main(int argc, char **argv)
 	while (++i < data->n_philos)
 	{
 		if (pthread_create(&((data->philos)[i].filo_thread),
-			NULL, &test, philos[i]))
+			NULL, &routines, (void *)&philos[i]))
 			return (1);
 	}
-	/* i = -1;
+	i = -1;
 	while (++i < data->n_philos)
 	{
-		if (pthread_create(&((data->philos)[i].filo_thread), NULL, &test, data))
+		if (pthread_join(((data->philos)[i].filo_thread), NULL))
 			return (1);
-	} */
+	}
 	free_universe(data, philos);
 	return (0);
 }
