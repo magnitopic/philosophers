@@ -6,13 +6,13 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:01:22 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/23 18:57:31 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/24 09:25:42 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_eat(t_philo *philo)
+static void	ft_eat(t_philo *philo)
 {
 	t_universe	*universe;
 
@@ -29,13 +29,13 @@ void	ft_eat(t_philo *philo)
 	pthread_mutex_unlock(&universe->forks[philo->fork_r]);
 }
 
-void	ft_sleep(t_philo *philo)
+static void	ft_sleep(t_philo *philo)
 {
 	print_message(philo, SLEEP);
 	usleep(philo->universe->t_sleep * 1000);
 }
 
-void	ft_think(t_philo *philo)
+static void	ft_think(t_philo *philo)
 {
 	print_message(philo, THINK);
 }
@@ -49,10 +49,11 @@ void	*routines(void *args)
 	universe = philo->universe;
 	if (philo->pos % 2 == 0)
 		usleep(50 * universe->n_philos);
-	while (universe->breaker
-		&& (philo->times_eaten < universe->n_eat || universe->n_eat == -1))
+	while (universe->breaker)
 	{
 		ft_eat(philo);
+		if (philo->times_eaten == universe->n_eat)
+			break ;
 		ft_sleep(philo);
 		ft_think(philo);
 	}

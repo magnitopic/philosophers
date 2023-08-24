@@ -3,7 +3,7 @@ NAME				=	philo
 
 PHILO_SRC			=	utils.c \
 						parsing.c \
-						actions.c \
+						routines.c \
 						philo.c
 OBJS				=	$(PHILO_SRC:.c=.o)
 

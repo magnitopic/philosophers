@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/23 18:53:05 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/24 09:32:15 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ static int	run_simulation(t_universe *data, t_philo *philos)
 	i = -1;
 	while (++i < data->n_philos)
 	{
-		if (pthread_create(&((data->philos)[i].filo_thread),
+		if (pthread_create(&((data->philos)[i].philo_thread),
 			NULL, &routines, (void *)&philos[i]))
 			return (1);
 	}
 	i = -1;
 	while (++i < data->n_philos)
 	{
-		if (pthread_join(((data->philos)[i].filo_thread), NULL))
+		if (pthread_join(((data->philos)[i].philo_thread), NULL))
 			return (1);
 	}
 	return (0);

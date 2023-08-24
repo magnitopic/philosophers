@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/23 12:30:28 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/24 09:08:57 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ typedef struct s_philo
 	int					fork_l;
 	int					fork_r;
 	int					life_expectancy;
-	pthread_t			filo_thread;
+	pthread_t			philo_thread;
 	struct s_universe	*universe;
 }	t_philo;
 
