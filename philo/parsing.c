@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:24:31 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/21 12:32:43 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/24 09:54:02 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	ft_isdigit(char *c)
 	int	i;
 
 	i = 0;
+	if (*(c + 1) == 0 && *c == '0')
+		return (0);
 	while (c[i])
 	{
 		if (c[i] < '0' || c[i] > '9')
