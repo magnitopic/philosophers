@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/23 18:25:00 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/25 17:15:36 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_message(t_philo *philo, enum e_mssg mssg)
 		printf("%d %d\033[0;34m is sleeping\033[0m 💤\n", time, philo->pos);
 	else if (mssg == THINK)
 		printf("%d %d\033[0;32m is thinking\033[0m 💭\n", time, philo->pos);
-	else if (mssg == DIE)
+	else if (mssg == DEATH)
 		printf("%d %d\033[0;31m died 💀\033[0m\n", time, philo->pos);
 	pthread_mutex_unlock(&philo->universe->message);
 }

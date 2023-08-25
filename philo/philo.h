@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/24 09:08:57 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/25 17:25:54 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ enum e_mssg
 	EAT,
 	SLEEP,
 	THINK,
-	DIE
+	DEATH
 };
 
 /* Structs */
@@ -38,7 +38,7 @@ typedef struct s_philo
 	int					times_eaten;
 	int					fork_l;
 	int					fork_r;
-	int					life_expectancy;
+	int					next_dying_time;
 	pthread_t			philo_thread;
 	struct s_universe	*universe;
 }	t_philo;
@@ -63,12 +63,13 @@ typedef struct s_universe
 
 /* Functions */
 
-int		parsing(int argc, char **argv);
-int		raise_error(char *message);
-int		ft_atoi(const char *str);
 void	*routines(void *args);
-void	print_message(t_philo *philo, enum e_mssg mssg);
 int		get_current_time(void);
+int		ft_atoi(const char *str);
+void	*check_death(void *args);
+int		raise_error(char *message);
+int		parsing(int argc, char **argv);
+void	print_message(t_philo *philo, enum e_mssg mssg);
 void	free_universe(t_universe *data, t_philo *philos);
 
 #endif

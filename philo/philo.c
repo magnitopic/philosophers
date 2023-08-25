@@ -6,11 +6,32 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/25 14:42:32 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/25 17:26:01 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	*check_death(void *args)
+{
+	t_philo		*philo;
+	t_universe	*universe;
+
+	philo = (t_philo *)args;
+	universe = philo->universe;
+	while (universe->breaker)
+	{
+		usleep(10);
+		if (get_current_time() - universe->start_time >= philo->next_dying_time)
+		{
+			universe->breaker = 0;
+			pthread_mutex_lock(&universe->death);
+			print_message(philo, DEATH);
+			pthread_mutex_lock(&universe->death);
+		}
+	}
+	return (0);
+}
 
 static t_philo	*create_philos(t_universe *data)
 {
@@ -30,7 +51,7 @@ static t_philo	*create_philos(t_universe *data)
 		if (i + 1 == data->n_philos)
 			philos[i].fork_r = 0;
 		pthread_mutex_init(data->forks + i, NULL);
-		philos[i].life_expectancy = get_current_time() + data->t_die;
+		philos[i].next_dying_time = get_current_time() + data->t_die;
 		philos[i].universe = data;
 	}
 	data->philos = philos;
