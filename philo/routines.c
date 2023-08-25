@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:01:22 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/24 09:25:42 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/25 14:40:53 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static void	ft_eat(t_philo *philo)
 	t_universe	*universe;
 
 	universe = philo->universe;
-	pthread_mutex_lock(&universe->forks[philo->fork_l]);
-	print_message(philo, FORK);
 	pthread_mutex_lock(&universe->forks[philo->fork_r]);
+	print_message(philo, FORK);
+	pthread_mutex_lock(&universe->forks[philo->fork_l]);
 	print_message(philo, FORK);
 	print_message(philo, EAT);
 	usleep(philo->universe->t_eat * 1000);

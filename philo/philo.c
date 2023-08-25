@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/24 09:32:15 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/25 14:42:32 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_philo	*create_philos(t_universe *data)
 		philos[i].fork_l = i;
 		philos[i].fork_r = i + 1;
 		if (i + 1 == data->n_philos)
-			philos[i].fork_r = 1;
+			philos[i].fork_r = 0;
 		pthread_mutex_init(data->forks + i, NULL);
 		philos[i].life_expectancy = get_current_time() + data->t_die;
 		philos[i].universe = data;
@@ -57,7 +57,6 @@ static t_universe	*start_universe(char **argv)
 	data->forks = malloc((sizeof(pthread_mutex_t) * data->n_philos) + 1);
 	if (data->forks == NULL)
 		return (free(data), NULL);
-	data->start_time = get_current_time();
 	return (data);
 }
 
@@ -95,6 +94,7 @@ int	main(int argc, char **argv)
 	philos = create_philos(data);
 	if (!philos)
 		return (free(data), 1);
+	data->start_time = get_current_time();
 	if (run_simulation(data, philos))
 		return (1);
 	free_universe(data, philos);
