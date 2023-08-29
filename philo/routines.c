@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:01:22 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/25 17:25:15 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:41:00 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ static void	ft_eat(t_philo *philo)
 	t_universe	*universe;
 
 	universe = philo->universe;
-	pthread_mutex_lock(&universe->forks[philo->fork_r]);
-	print_message(philo, FORK);
 	pthread_mutex_lock(&universe->forks[philo->fork_l]);
 	print_message(philo, FORK);
+	pthread_mutex_lock(&universe->forks[philo->fork_r]);
+	print_message(philo, FORK);
+	pthread_mutex_lock(&philo->eating);
 	print_message(philo, EAT);
+	pthread_mutex_unlock(&philo->eating);
 	usleep(philo->universe->t_eat * 1000);
 	philo->next_dying_time = get_current_time() + philo->universe->t_die;
 	philo->times_eaten++;
@@ -44,14 +46,14 @@ void	*routines(void *args)
 {
 	t_philo		*philo;
 	t_universe	*universe;
-	pthread_t	death;
+	//pthread_t	death;
 
 	philo = (t_philo *)args;
 	universe = philo->universe;
-	if (pthread_create(&death, NULL, check_death, philo))
-		return (0);
+	/* if (pthread_create(&death, NULL, check_death, philo))
+		return (0); */
 	if (philo->pos % 2 == 0)
-		usleep(50 * universe->n_philos);
+		usleep(30000);
 	while (universe->breaker)
 	{
 		ft_eat(philo);

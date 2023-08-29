@@ -6,13 +6,13 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/25 17:26:01 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:22:08 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*check_death(void *args)
+/* void	*check_death(void *args)
 {
 	t_philo		*philo;
 	t_universe	*universe;
@@ -31,7 +31,7 @@ void	*check_death(void *args)
 		}
 	}
 	return (0);
-}
+} */
 
 static t_philo	*create_philos(t_universe *data)
 {
@@ -50,7 +50,9 @@ static t_philo	*create_philos(t_universe *data)
 		philos[i].fork_r = i + 1;
 		if (i + 1 == data->n_philos)
 			philos[i].fork_r = 0;
+		//printf("philo: %d Forks:\t %d - %d\n", philos[i].pos, philos[i].fork_l + 1, philos[i].fork_r + 1);
 		pthread_mutex_init(data->forks + i, NULL);
+		pthread_mutex_init(&(philos[i]).eating, NULL);
 		philos[i].next_dying_time = get_current_time() + data->t_die;
 		philos[i].universe = data;
 	}
