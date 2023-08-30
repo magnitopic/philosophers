@@ -6,32 +6,41 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/30 12:26:12 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/30 15:50:31 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/* void	*check_death(void *args)
+void	*check_death(void *args)
 {
 	t_philo		*philo;
-	t_universe	*universe;
+	int			i;
+	int	time;
+	t_universe	*data;
 
-	philo = (t_philo *)args;
-	universe = philo->universe;
-	while (universe->breaker)
+	data = (t_universe *)args;
+	while (data->breaker)
 	{
-		usleep(10);
-		if (get_current_time() - universe->start_time >= philo->next_dying_time)
+		i = 0;
+		while (i < data->n_philos)
 		{
-			universe->breaker = 0;
-			pthread_mutex_lock(&universe->death);
-			print_message(philo, DEATH);
-			pthread_mutex_lock(&universe->death);
+			usleep(500);
+			philo = &(data->philos)[i++];
+			if (get_current_time() >= philo->next_dying_time)
+			{
+				data->breaker = 0;
+				pthread_mutex_lock(&philo->eating);
+				pthread_mutex_lock(&data->death);
+				time = get_current_time() - philo->universe->start_time;
+				printf(COMMON, time, philo->pos);
+				printf(DIE_MESSAGE);
+				pthread_mutex_unlock(&philo->eating);
+			}
 		}
 	}
 	return (0);
-} */
+}
 
 static t_philo	*create_philos(t_universe *data)
 {
@@ -87,6 +96,9 @@ static int	run_simulation(t_universe *data, t_philo *philos)
 {
 	int	i;
 
+	if (pthread_create(&data->death_thread, NULL, &check_death, (void *)data))
+		return (1);
+	pthread_detach(data->death_thread);
 	i = -1;
 	while (++i < data->n_philos)
 	{

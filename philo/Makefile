@@ -10,7 +10,7 @@ OBJS				=	$(PHILO_SRC:.c=.o)
 # Compiler
 CC					=	gcc
 RM					=	rm -f
-CFLAGS				=	-Wall -Werror -Wextra -pthread -g3 -fsanitize=thread
+CFLAGS				=	-Wall -Werror -Wextra -pthread -g3 -fsanitize=address
 
 # Colours
 RED					=	\033[0;31m
@@ -27,7 +27,7 @@ all:		$(NAME)
 			@printf "$(BLUE)==> $(CYAN)Philosophers compiled ✅\n\n$(RESET)"
 
 $(NAME):	$(OBJS)
-			@$(CC) $(CFLAGS) $(OBJS) -g3 -fsanitize=thread -o $(NAME)
+			@$(CC) $(CFLAGS) $(OBJS) -g3 -fsanitize=address -o $(NAME)
 
 clean:
 			@$(RM) $(OBJS)

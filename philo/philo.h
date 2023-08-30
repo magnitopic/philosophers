@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/30 12:11:27 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/30 12:32:17 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct s_universe
 	pthread_mutex_t	death;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
+	pthread_t		death_thread;
 }	t_universe;
 
 /* Functions */

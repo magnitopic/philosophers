@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/30 12:26:27 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:55:33 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	print_message(t_philo *philo, enum e_mssg mssg)
 {
 	int	time;
 
+	if (!philo->universe->breaker)
+		return ;
 	pthread_mutex_lock(&philo->universe->message);
 	time = get_current_time() - philo->universe->start_time;
 	printf(COMMON, time, philo->pos);
@@ -35,8 +37,6 @@ void	print_message(t_philo *philo, enum e_mssg mssg)
 		printf(SLEEP_MESSAGE);
 	else if (mssg == THINK)
 		printf(THINK_MESSAGE);
-	else if (mssg == DEATH)
-		printf(DIE_MESSAGE);
 	pthread_mutex_unlock(&philo->universe->message);
 }
 
