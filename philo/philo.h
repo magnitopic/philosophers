@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/29 19:11:33 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/30 12:11:27 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
+
+# define COMMON "\033[1;30m%d ms\t\033[1;31m%d"
+# define FORK_MESSAGE "\033[0;36m has taken a fork\033[0m 🍴\n"
+# define EAT_MESSAGE "\033[0;33m is eating\033[0m 🍝\n"
+# define SLEEP_MESSAGE "\033[0;34m is sleeping\033[0m 💤\n"
+# define THINK_MESSAGE "\033[0;32m is thinking\033[0m 💭\n"
+# define DIE_MESSAGE "\033[0;31m died 💀\033[0m\n"
 
 /* Enum */
 

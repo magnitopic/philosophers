@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/29 19:22:08 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/30 12:26:12 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static t_universe	*start_universe(char **argv)
 		data->n_eat = ft_atoi(argv[5]);
 	pthread_mutex_init(&data->message, NULL);
 	pthread_mutex_init(&data->death, NULL);
-	data->forks = malloc((sizeof(pthread_mutex_t) * data->n_philos) + 1);
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_philos);
 	if (data->forks == NULL)
 		return (free(data), NULL);
 	return (data);

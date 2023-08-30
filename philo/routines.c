@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:01:22 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/29 19:41:00 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/30 11:37:41 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,9 @@ void	*routines(void *args)
 {
 	t_philo		*philo;
 	t_universe	*universe;
-	//pthread_t	death;
 
 	philo = (t_philo *)args;
 	universe = philo->universe;
-	/* if (pthread_create(&death, NULL, check_death, philo))
-		return (0); */
 	if (philo->pos % 2 == 0)
 		usleep(30000);
 	while (universe->breaker)

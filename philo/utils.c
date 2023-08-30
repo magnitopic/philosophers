@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/25 17:15:36 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/30 12:26:27 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,17 @@ void	print_message(t_philo *philo, enum e_mssg mssg)
 
 	pthread_mutex_lock(&philo->universe->message);
 	time = get_current_time() - philo->universe->start_time;
+	printf(COMMON, time, philo->pos);
 	if (mssg == FORK)
-		printf("%d %d\033[0;36m has taken a fork\033[0m 🍴\n", time, philo->pos);
+		printf(FORK_MESSAGE);
 	else if (mssg == EAT)
-		printf("%d %d\033[0;33m is eating\033[0m 🍝\n", time, philo->pos);
+		printf(EAT_MESSAGE);
 	else if (mssg == SLEEP)
-		printf("%d %d\033[0;34m is sleeping\033[0m 💤\n", time, philo->pos);
+		printf(SLEEP_MESSAGE);
 	else if (mssg == THINK)
-		printf("%d %d\033[0;32m is thinking\033[0m 💭\n", time, philo->pos);
+		printf(THINK_MESSAGE);
 	else if (mssg == DEATH)
-		printf("%d %d\033[0;31m died 💀\033[0m\n", time, philo->pos);
+		printf(DIE_MESSAGE);
 	pthread_mutex_unlock(&philo->universe->message);
 }
 
@@ -68,9 +69,15 @@ int	ft_atoi(const char *str)
 
 void	free_universe(t_universe *data, t_philo *philos)
 {
-	// TODO: Free forks inside data
+	int	i;
+
+	i = 0;
 	pthread_mutex_destroy(&data->message);
 	pthread_mutex_destroy(&data->death);
+	while (i < data->n_philos)
+		pthread_mutex_destroy(&data->forks[i++]);
+	free(data->forks);
 	free(data);
+	pthread_mutex_destroy(&philos->eating);
 	free(philos);
 }
