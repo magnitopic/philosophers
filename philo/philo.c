@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/30 15:50:31 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/04 08:48:18 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	*check_death(void *args)
 				printf(COMMON, time, philo->pos);
 				printf(DIE_MESSAGE);
 				pthread_mutex_unlock(&philo->eating);
+				return (0);
 			}
 		}
 	}

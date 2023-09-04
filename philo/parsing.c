@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:24:31 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/24 09:54:02 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/31 11:50:17 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ static int	error_message(int n)
 		printf("\t2. Time to die\n");
 		printf("\t3. Time to eat\n");
 		printf("\t4. Time to sleep\n");
-		printf("\t5. (Optional) Number of times philos must eat");
+		printf("\t5. (Optional) Number of times philos must eat\033[0m");
 	}
 	if (n == 2)
-		printf("\033[0;31mInvalid value for philosophers.");
+		printf("\033[0;31mInvalid value for philosophers.\033[0m");
 	if (n == 3)
-		printf("\033[0;31mInvalid value for time.");
+		printf("\033[0;31mInvalid value for time.\033[0m");
 	if (n == 4)
-		printf("\033[0;31mInvalid value for times to eat");
+		printf("\033[0;31mInvalid value for times to eat.\033[0m");
 	printf("\n\033[0m");
 	return (1);
 }
