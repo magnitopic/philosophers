@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/04 11:58:58 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/04 12:15:02 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,24 +72,18 @@ int	ft_atoi(const char *str)
 	return (sign * num);
 }
 
-void	destroy_mutex(t_philo *philo)
-{
-	/* philo->universe->t_eat = 0;
-	philo->universe->t_sleep = 0; */
-	(void)philo;
-}
-
 void	free_universe(t_universe *data, t_philo *philos)
 {
 	int	i;
 
 	i = 0;
-	pthread_mutex_destroy(&data->message);
-	//pthread_mutex_destroy(&data->death);
 	while (i < data->n_philos)
+	{
 		pthread_mutex_destroy(&data->forks[i++]);
+		pthread_mutex_destroy(&data->philos->check_dying_time);
+	}
+	pthread_mutex_destroy(&data->message);
 	free(data->forks);
 	free(data);
-	pthread_mutex_destroy(&philos->eating);
 	free(philos);
 }

@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/04 11:53:09 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/04 12:13:03 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ typedef struct s_philo
 	int					next_dying_time;
 	pthread_mutex_t		check_dying_time;
 	pthread_t			philo_thread;
-	pthread_mutex_t		eating;
 	struct s_universe	*universe;
 }	t_philo;
 
@@ -81,7 +80,6 @@ int		get_current_time(void);
 int		ft_atoi(const char *str);
 void	*check_death(void *args);
 int		raise_error(char *message);
-void	destroy_mutex(t_philo *philo);
 int		parsing(int argc, char **argv);
 void	print_message(t_philo *philo, enum e_mssg mssg);
 void	free_universe(t_universe *data, t_philo *philos);

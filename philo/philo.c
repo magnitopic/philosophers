@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/04 11:43:33 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/04 12:11:45 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static t_philo	*create_philos(t_universe *data)
 		if (i + 1 == data->n_philos)
 			philos[i].fork_r = 0;
 		pthread_mutex_init(data->forks + i, NULL);
-		pthread_mutex_init(&(philos[i]).eating, NULL);
 		pthread_mutex_init(&(philos[i]).check_dying_time, NULL);
 		philos[i].next_dying_time = get_current_time() + data->t_die;
 		philos[i].universe = data;
