@@ -6,42 +6,11 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/04 08:48:18 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/04 11:43:33 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	*check_death(void *args)
-{
-	t_philo		*philo;
-	int			i;
-	int	time;
-	t_universe	*data;
-
-	data = (t_universe *)args;
-	while (data->breaker)
-	{
-		i = 0;
-		while (i < data->n_philos)
-		{
-			usleep(500);
-			philo = &(data->philos)[i++];
-			if (get_current_time() >= philo->next_dying_time)
-			{
-				data->breaker = 0;
-				pthread_mutex_lock(&philo->eating);
-				pthread_mutex_lock(&data->death);
-				time = get_current_time() - philo->universe->start_time;
-				printf(COMMON, time, philo->pos);
-				printf(DIE_MESSAGE);
-				pthread_mutex_unlock(&philo->eating);
-				return (0);
-			}
-		}
-	}
-	return (0);
-}
 
 static t_philo	*create_philos(t_universe *data)
 {
@@ -60,9 +29,9 @@ static t_philo	*create_philos(t_universe *data)
 		philos[i].fork_r = i + 1;
 		if (i + 1 == data->n_philos)
 			philos[i].fork_r = 0;
-		//printf("philo: %d Forks:\t %d - %d\n", philos[i].pos, philos[i].fork_l + 1, philos[i].fork_r + 1);
 		pthread_mutex_init(data->forks + i, NULL);
 		pthread_mutex_init(&(philos[i]).eating, NULL);
+		pthread_mutex_init(&(philos[i]).check_dying_time, NULL);
 		philos[i].next_dying_time = get_current_time() + data->t_die;
 		philos[i].universe = data;
 	}
@@ -86,7 +55,8 @@ static t_universe	*start_universe(char **argv)
 	if (argv[5])
 		data->n_eat = ft_atoi(argv[5]);
 	pthread_mutex_init(&data->message, NULL);
-	pthread_mutex_init(&data->death, NULL);
+	//pthread_mutex_init(&data->death, NULL);
+	pthread_mutex_init(&data->check_breaker, NULL);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_philos);
 	if (data->forks == NULL)
 		return (free(data), NULL);

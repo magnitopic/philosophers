@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:01:22 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/30 15:36:54 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/08/31 13:31:50 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ static void	ft_eat(t_philo *philo)
 	print_message(philo, FORK);
 	pthread_mutex_lock(&universe->forks[philo->fork_r]);
 	print_message(philo, FORK);
+	pthread_mutex_lock(&philo->check_dying_time);
 	philo->next_dying_time = get_current_time() + philo->universe->t_die;
+	pthread_mutex_unlock(&philo->check_dying_time);
 	pthread_mutex_lock(&philo->eating);
 	print_message(philo, EAT);
 	pthread_mutex_unlock(&philo->eating);
@@ -46,22 +48,25 @@ void	*routines(void *args)
 {
 	t_philo		*philo;
 	t_universe	*universe;
+	int			breaker_stat;
 
 	philo = (t_philo *)args;
 	universe = philo->universe;
 	if (philo->pos % 2 == 0)
 		usleep(30000);
-	while (universe->breaker)
+	pthread_mutex_lock(&universe->check_breaker);
+	breaker_stat = universe->breaker;
+	pthread_mutex_unlock(&universe->check_breaker);
+	while (breaker_stat)
 	{
 		ft_eat(philo);
 		if (philo->times_eaten == universe->n_eat)
 			break ;
 		ft_sleep(philo);
-		if (philo->times_eaten == universe->n_eat)
-			break ;
 		ft_think(philo);
-		if (philo->times_eaten == universe->n_eat)
-			break ;
+		pthread_mutex_lock(&universe->check_breaker);
+		breaker_stat = universe->breaker;
+		pthread_mutex_unlock(&universe->check_breaker);
 	}
 	return (0);
 }

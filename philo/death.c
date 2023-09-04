@@ -1,0 +1,60 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   death.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/04 11:24:33 by alaparic          #+#    #+#             */
+/*   Updated: 2023/09/04 12:00:07 by alaparic         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "philo.h"
+
+static void	handle_death(t_philo *philo, t_universe *data)
+{
+	int			time;
+
+	pthread_mutex_lock(&data->check_breaker);
+	if (data->breaker == 0)
+		return ;
+	data->breaker = 0;
+	pthread_mutex_unlock(&data->check_breaker);
+	//pthread_mutex_lock(&data->death);
+	time = get_current_time() - philo->universe->start_time;
+	usleep(1000);
+	pthread_mutex_lock(&data->message);
+	printf(COMMON, time, philo->pos);
+	printf(DIE_MESSAGE);
+	usleep(1000);
+	pthread_mutex_unlock(&data->message);
+	//pthread_mutex_unlock(&data->death);
+}
+
+void	*check_death(void *args)
+{
+	int			i;
+	t_universe	*data;
+	t_philo		*philo;
+
+	data = (t_universe *)args;
+	while (data->breaker)
+	{
+		i = 0;
+		while (i < data->n_philos)
+		{
+			usleep(500);
+			philo = &(data->philos)[i++];
+			pthread_mutex_lock(&philo->check_dying_time);
+			if (get_current_time() >= philo->next_dying_time)
+			{
+				handle_death(philo, data);
+				pthread_mutex_lock(&philo->check_dying_time);
+				return (0);
+			}
+			pthread_mutex_unlock(&philo->check_dying_time);
+		}
+	}
+	return (0);
+}

@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/30 12:32:17 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/04 11:53:09 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <pthread.h>
 # include <sys/time.h>
+
+/* Messages to print */
 
 # define COMMON "\033[1;30m%d ms\t\033[1;31m%d"
 # define FORK_MESSAGE "\033[0;36m has taken a fork\033[0m 🍴\n"
@@ -46,6 +48,7 @@ typedef struct s_philo
 	int					fork_l;
 	int					fork_r;
 	int					next_dying_time;
+	pthread_mutex_t		check_dying_time;
 	pthread_t			philo_thread;
 	pthread_mutex_t		eating;
 	struct s_universe	*universe;
@@ -61,10 +64,11 @@ typedef struct s_universe
 	int				t_eat;
 	int				t_sleep;
 	int				n_eat;
-	int				breaker;
 	int				start_time;
+	int				breaker;
+	pthread_mutex_t	check_breaker;
 	pthread_mutex_t	message;
-	pthread_mutex_t	death;
+//	pthread_mutex_t	death;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
 	pthread_t		death_thread;
@@ -77,6 +81,7 @@ int		get_current_time(void);
 int		ft_atoi(const char *str);
 void	*check_death(void *args);
 int		raise_error(char *message);
+void	destroy_mutex(t_philo *philo);
 int		parsing(int argc, char **argv);
 void	print_message(t_philo *philo, enum e_mssg mssg);
 void	free_universe(t_universe *data, t_philo *philos);
