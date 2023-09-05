@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:24:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/04 13:15:23 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:22:07 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	*check_death(void *args)
 	int			i;
 	t_universe	*data;
 	t_philo		*philo;
+	int			time;
 
 	data = (t_universe *)args;
 	usleep(500);
@@ -42,13 +43,14 @@ void	*check_death(void *args)
 		{
 			philo = &(data->philos)[i++];
 			pthread_mutex_lock(&philo->check_dying_time);
-			if (get_current_time() >= philo->next_dying_time)
+			time = philo->next_dying_time;
+			pthread_mutex_unlock(&philo->check_dying_time);
+			if (get_current_time() >= time)
 			{
+				printf("HA PALMAO EN: %d\n", get_current_time() - time);
 				handle_death(philo, data);
-				pthread_mutex_unlock(&philo->check_dying_time);
 				return (0);
 			}
-			pthread_mutex_unlock(&philo->check_dying_time);
 		}
 	}
 	return (0);
