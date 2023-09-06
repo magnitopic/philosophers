@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:24:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/06 19:09:06 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:37:35 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	*check_death(void *args)
 			pthread_mutex_lock(&philo->check_dying_time);
 			time = philo->next_dying_time;
 			pthread_mutex_unlock(&philo->check_dying_time);
-			usleep(1);
 			if (get_current_time() > time)
 			{
 				printf("HA PALMAO EN: %d\n", get_current_time() - time);
@@ -52,6 +51,7 @@ void	*check_death(void *args)
 				return (0);
 			}
 		}
+		usleep(5000);
 	}
 	return (0);
 }
