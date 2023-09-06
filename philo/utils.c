@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/05 19:30:27 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:02:41 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,12 @@ void	free_universe(t_universe *data, t_philo *philos)
 	free(philos);
 }
 
-void	handle_one_philo(t_universe *data)
+void	ft_usleep(int time)
 {
-	print_message(&data->philos[0], FORK);
-	usleep(data->t_die * 1000);
-	printf(COMMON, data->t_die, data->philos[0].pos);
-	printf(DIE_MESSAGE);
+	int	start_time;
+
+	start_time = get_current_time();
+	while (get_current_time() - start_time < time)
+		continue ;
+	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:24:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/05 18:22:07 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:09:06 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	handle_death(t_philo *philo, t_universe *data)
 	pthread_mutex_lock(&data->check_breaker);
 	data->breaker = 0;
 	pthread_mutex_unlock(&data->check_breaker);
-	usleep(1000);
+	ft_usleep(1);
 	pthread_mutex_lock(&data->message);
 	printf(COMMON, time, philo->pos);
 	printf(DIE_MESSAGE);
@@ -35,7 +35,6 @@ void	*check_death(void *args)
 	int			time;
 
 	data = (t_universe *)args;
-	usleep(500);
 	while (data->breaker)
 	{
 		i = 0;
@@ -45,7 +44,8 @@ void	*check_death(void *args)
 			pthread_mutex_lock(&philo->check_dying_time);
 			time = philo->next_dying_time;
 			pthread_mutex_unlock(&philo->check_dying_time);
-			if (get_current_time() >= time)
+			usleep(1);
+			if (get_current_time() > time)
 			{
 				printf("HA PALMAO EN: %d\n", get_current_time() - time);
 				handle_death(philo, data);
@@ -54,4 +54,12 @@ void	*check_death(void *args)
 		}
 	}
 	return (0);
+}
+
+void	handle_one_philo(t_universe *data)
+{
+	print_message(&data->philos[0], FORK);
+	ft_usleep(data->t_die);
+	printf(COMMON, data->t_die, data->philos[0].pos);
+	printf(DIE_MESSAGE);
 }

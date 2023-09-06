@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:01:22 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/04 12:11:31 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:04:22 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	ft_eat(t_philo *philo)
 	philo->next_dying_time = get_current_time() + philo->universe->t_die;
 	pthread_mutex_unlock(&philo->check_dying_time);
 	print_message(philo, EAT);
-	usleep(philo->universe->t_eat * 1000);
+	ft_usleep(philo->universe->t_eat);
 	philo->times_eaten++;
 	pthread_mutex_unlock(&universe->forks[philo->fork_l]);
 	pthread_mutex_unlock(&universe->forks[philo->fork_r]);
@@ -34,7 +34,7 @@ static void	ft_eat(t_philo *philo)
 static void	ft_sleep(t_philo *philo)
 {
 	print_message(philo, SLEEP);
-	usleep(philo->universe->t_sleep * 1000);
+	ft_usleep(philo->universe->t_sleep);
 }
 
 static void	ft_think(t_philo *philo)
@@ -51,7 +51,7 @@ void	*routines(void *args)
 	philo = (t_philo *)args;
 	universe = philo->universe;
 	if (philo->pos % 2 == 0)
-		usleep(30000);
+		ft_usleep(30);
 	pthread_mutex_lock(&universe->check_breaker);
 	breaker_stat = universe->breaker;
 	pthread_mutex_unlock(&universe->check_breaker);
