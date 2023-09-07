@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/06 19:01:20 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/07 12:11:58 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 /* Messages to print */
 
-# define COMMON "\033[1;30m%d ms\t\033[1;31m%d"
+# define COMMON "\033[1;30m%-5d ms \033[1;31m%d"
 # define FORK_MESSAGE "\033[0;36m has taken a fork\033[0m 🍴\n"
 # define EAT_MESSAGE "\033[0;33m is eating\033[0m 🍝\n"
 # define SLEEP_MESSAGE "\033[0;34m is sleeping\033[0m 💤\n"

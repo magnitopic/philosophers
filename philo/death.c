@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 11:24:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/06 19:37:35 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/07 12:56:29 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	*check_death(void *args)
 			pthread_mutex_unlock(&philo->check_dying_time);
 			if (get_current_time() > time)
 			{
-				printf("HA PALMAO EN: %d\n", get_current_time() - time);
 				handle_death(philo, data);
 				return (0);
 			}
