@@ -2,9 +2,10 @@
 NAME				=	philo
 
 PHILO_SRC			=	utils.c \
+						death.c \
 						parsing.c \
 						routines.c \
-						death.c \
+						validations.c \
 						philo.c
 OBJS				=	$(PHILO_SRC:.c=.o)
 
