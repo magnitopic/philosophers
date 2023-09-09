@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/08 12:04:30 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/09 17:01:56 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 /* Messages to print */
 
-# define COMMON "\033[1;30m%-5d ms \033[1;31m%d"
+# define COMMON "\033[1;30m%-5ld ms \033[1;31m%d"
 # define FORK_MESSAGE "\033[0;36m has taken a fork\033[0m 🍴\n"
 # define EAT_MESSAGE "\033[0;33m is eating\033[0m 🍝\n"
 # define SLEEP_MESSAGE "\033[0;34m is sleeping\033[0m 💤\n"
@@ -47,7 +47,7 @@ typedef struct s_philo
 	int					times_eaten;
 	int					fork_l;
 	int					fork_r;
-	int					next_dying_time;
+	long				next_dying_time;
 	pthread_mutex_t		check_dying_time;
 	pthread_mutex_t		check_times_eaten;
 	pthread_t			philo_thread;
@@ -60,11 +60,11 @@ typedef struct s_philo
 typedef struct s_universe
 {
 	int				n_philos;
-	int				t_die;
-	int				t_eat;
-	int				t_sleep;
+	long			t_die;
+	long			t_eat;
+	long			t_sleep;
 	int				n_eat;
-	int				start_time;
+	long			start_time;
 	int				breaker;
 	pthread_mutex_t	check_breaker;
 	pthread_mutex_t	message;
@@ -78,7 +78,7 @@ typedef struct s_universe
 
 void	*routines(void *args);
 void	ft_usleep(int time);
-int		get_current_time(void);
+long	get_current_time(void);
 int		ft_atoi(const char *str);
 void	*check_death(void *args);
 int		raise_error(char *message);

@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 10:07:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/08 16:43:08 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:57:16 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	*check_death(void *args)
 	int			i;
 	t_universe	*data;
 	t_philo		*philo;
-	int			time;
+	long		time;
 
 	data = (t_universe *)args;
 	while (check_finished(data))

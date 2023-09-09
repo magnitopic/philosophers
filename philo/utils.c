@@ -6,13 +6,13 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/08 12:05:54 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:56:58 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	get_current_time(void)
+long	get_current_time(void)
 {
 	struct timeval	current_time;
 
@@ -22,7 +22,7 @@ int	get_current_time(void)
 
 void	print_message(t_philo *philo, enum e_mssg mssg)
 {
-	int	time;
+	long	time;
 
 	pthread_mutex_lock(&philo->universe->check_breaker);
 	if (!philo->universe->breaker)
@@ -74,6 +74,16 @@ int	ft_atoi(const char *str)
 	return (sign * num);
 }
 
+void	ft_usleep(int time)
+{
+	long	start_time;
+
+	start_time = get_current_time();
+	while (get_current_time() - start_time < time)
+		continue ;
+	return ;
+}
+
 void	free_universe(t_universe *data, t_philo *philos)
 {
 	int	i;
@@ -88,14 +98,4 @@ void	free_universe(t_universe *data, t_philo *philos)
 	free(data->forks);
 	free(data);
 	free(philos);
-}
-
-void	ft_usleep(int time)
-{
-	int	start_time;
-
-	start_time = get_current_time();
-	while (get_current_time() - start_time < time)
-		continue ;
-	return ;
 }
