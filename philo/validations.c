@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 10:07:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/09 16:57:16 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/09 17:09:46 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,17 @@
 
 void	finish_simulation(t_philo *philo, int death)
 {
+	long	time;
+
+	time = get_current_time() - philo->universe->start_time;
 	pthread_mutex_lock(&philo->universe->check_breaker);
 	philo->universe->breaker = 0;
 	pthread_mutex_unlock(&philo->universe->check_breaker);
 	if (death)
-		print_message(philo, DEATH);
+	{
+		printf(COMMON, time, philo->pos);
+		printf(DIE_MESSAGE);
+	}
 	pthread_mutex_unlock(&philo->universe->death);
 }
 
@@ -54,7 +60,7 @@ void	*check_death(void *args)
 	long		time;
 
 	data = (t_universe *)args;
-	while (check_finished(data))
+	while (!check_finished(data))
 	{
 		i = 0;
 		while (i < data->n_philos)
