@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/09 17:01:56 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/09 17:33:30 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef struct s_universe
 	int				breaker;
 	pthread_mutex_t	check_breaker;
 	pthread_mutex_t	message;
-	pthread_mutex_t	death;
 	t_philo			*philos;
 	pthread_mutex_t	*forks;
 	pthread_t		death_thread;
