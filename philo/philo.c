@@ -6,11 +6,22 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/07 11:45:53 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:43:11 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static void	handle_one_philo(t_universe *data)
+{
+	long	time;
+
+	time = get_current_time() - data->start_time;
+	print_message(&data->philos[0], FORK, time);
+	ft_usleep(data->t_die);
+	printf(COMMON, data->t_die, data->philos[0].pos);
+	printf(DIE_MESSAGE);
+}
 
 static t_philo	*create_philos(t_universe *data)
 {

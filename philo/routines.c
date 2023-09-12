@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 13:01:22 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/09 17:26:49 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:49:52 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,20 @@
 static void	ft_eat(t_philo *philo)
 {
 	t_universe	*universe;
+	long		time;
 
 	universe = philo->universe;
 	pthread_mutex_lock(&universe->forks[philo->fork_l]);
-	print_message(philo, FORK);
+	time = get_current_time() - universe->start_time;
+	print_message(philo, FORK, time);
 	pthread_mutex_lock(&universe->forks[philo->fork_r]);
-	print_message(philo, FORK);
+	time = get_current_time() - universe->start_time;
+	print_message(philo, FORK, time);
 	pthread_mutex_lock(&philo->check_dying_time);
 	philo->next_dying_time = get_current_time() + philo->universe->t_die;
 	pthread_mutex_unlock(&philo->check_dying_time);
-	print_message(philo, EAT);
+	time = get_current_time() - universe->start_time;
+	print_message(philo, EAT, time);
 	ft_usleep(philo->universe->t_eat);
 	pthread_mutex_unlock(&philo->universe->forks[philo->fork_l]);
 	pthread_mutex_unlock(&philo->universe->forks[philo->fork_r]);
@@ -33,38 +37,37 @@ static void	ft_eat(t_philo *philo)
 
 static void	ft_sleep(t_philo *philo)
 {
-	print_message(philo, SLEEP);
+	long	time;
+
+	time = get_current_time() - philo->universe->start_time;
+	print_message(philo, SLEEP, time);
 	ft_usleep(philo->universe->t_sleep);
 }
 
 static void	ft_think(t_philo *philo)
 {
-	print_message(philo, THINK);
+	long	time;
+
+	time = get_current_time() - philo->universe->start_time;
+	print_message(philo, THINK, time);
 }
 
 void	*routines(void *args)
 {
 	t_philo		*philo;
 	t_universe	*universe;
-	int			breaker_stat;
 
 	philo = (t_philo *)args;
 	universe = philo->universe;
 	if (philo->pos % 2 == 0)
 		ft_usleep(30);
-	pthread_mutex_lock(&universe->check_breaker);
-	breaker_stat = universe->breaker;
-	pthread_mutex_unlock(&universe->check_breaker);
-	while (breaker_stat)
+	while (!check_finished(universe))
 	{
 		ft_eat(philo);
 		if (philo->times_eaten == universe->n_eat)
 			break ;
 		ft_sleep(philo);
 		ft_think(philo);
-		pthread_mutex_lock(&universe->check_breaker);
-		breaker_stat = universe->breaker;
-		pthread_mutex_unlock(&universe->check_breaker);
 	}
 	return (0);
 }

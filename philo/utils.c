@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/09 17:35:06 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/12 15:04:59 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ long	get_current_time(void)
 	return ((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
 
-void	print_message(t_philo *philo, enum e_mssg mssg)
+void	print_message(t_philo *philo, enum e_mssg mssg, long time)
 {
-	long	time;
-
 	pthread_mutex_lock(&philo->universe->check_breaker);
 	if (!philo->universe->breaker)
 	{
@@ -32,7 +30,6 @@ void	print_message(t_philo *philo, enum e_mssg mssg)
 	}
 	pthread_mutex_unlock(&philo->universe->check_breaker);
 	pthread_mutex_lock(&philo->universe->message);
-	time = get_current_time() - philo->universe->start_time;
 	printf(COMMON, time, philo->pos);
 	if (mssg == FORK)
 		printf(FORK_MESSAGE);
@@ -78,7 +75,7 @@ void	ft_usleep(int time)
 
 	start_time = get_current_time();
 	while (get_current_time() - start_time < time)
-		continue ;
+		usleep(500);
 	return ;
 }
 

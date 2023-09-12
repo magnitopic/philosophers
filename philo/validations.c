@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 10:07:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/09 17:39:07 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:53:37 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int	check_times_eaten(t_philo *philo)
 void	*check_death(void *args)
 {
 	int			i;
+	long		time;
 	t_universe	*data;
 	t_philo		*philo;
-	long		time;
 
 	data = (t_universe *)args;
 	while (!check_finished(data))

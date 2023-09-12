@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/09 17:33:30 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:49:40 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ int		ft_atoi(const char *str);
 void	*check_death(void *args);
 int		raise_error(char *message);
 int		parsing(int argc, char **argv);
-void	handle_one_philo(t_universe *data);
-void	print_message(t_philo *philo, enum e_mssg mssg);
+int		check_finished(t_universe *data);
 void	free_universe(t_universe *data, t_philo *philos);
+void	print_message(t_philo *philo, enum e_mssg mssg, long time);
 
 #endif
