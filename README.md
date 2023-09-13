@@ -24,7 +24,7 @@ make
 ./philo "number_of_philos" "time_to_die" "time_to_eat" "time_to_sleep" "times_a_philo_must_eat(optional)"
 ```
 
-### Examples
+## Examples
 
 Normal execution
 
@@ -38,8 +38,14 @@ Every philo will eat 50 times
 ./philo 5 800 200 200 50
 ```
 
-With some tight timing
+Example with some tight timing
 
 ```bash
 ./philo 5 310 103 103
+```
+
+Example using pipes to count number of times eaten. 5 philos times 7 times to eat, the result should be 35
+
+```bash
+./philo 5 800 200 200 7 | grep "eating" | wc -l
 ```
