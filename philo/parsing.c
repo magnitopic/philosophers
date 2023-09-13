@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:24:31 by alaparic          #+#    #+#             */
-/*   Updated: 2023/08/31 11:50:17 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/13 18:37:56 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,23 @@ static int	error_message(int n)
 	return (1);
 }
 
+static int	check_empty(int argc, char **argv)
+{
+	int	i;
+
+	i = 1;
+	while (i < argc)
+	{
+		if (!(argv[i][0]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	parsing(int argc, char **argv)
 {
-	if (argc < 5 || argc > 6)
+	if (argc < 5 || argc > 6 || check_empty(argc, argv))
 		return (error_message(1));
 	if (!ft_isdigit(argv[1]))
 		return (error_message(2));
