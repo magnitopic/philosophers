@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/13 09:20:09 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/13 09:50:06 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,8 @@ typedef struct s_universe
 void	ft_usleep(int time);
 void	*routines(void *args);
 long	get_current_time(void);
-int		ft_atoi(const char *str);
 void	*check_death(void *args);
-int		raise_error(char *message);
+int		ft_atoi(const char *str);
 int		parsing(int argc, char **argv);
 int		check_finished(t_universe *data);
 void	free_universe(t_universe *data, t_philo *philos);
