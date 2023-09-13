@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 10:07:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/13 07:55:54 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/13 09:22:12 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void	*check_death(void *args)
 	long		time;
 	t_universe	*data;
 	t_philo		*philo;
+	int			eaten;
 
 	data = (t_universe *)args;
 	while (!check_finished(data))
@@ -59,8 +60,19 @@ void	*check_death(void *args)
 			pthread_mutex_lock(&philo->check_dying_time);
 			time = philo->next_dying_time;
 			pthread_mutex_unlock(&philo->check_dying_time);
-			if (get_current_time() > time && philo->times_eaten >= data->t_eat)
+			if ((get_current_time() > time && data->n_eat == -1))
+			{
+				printf("Died from time\n");
 				return (finish_simulation(philo, 1), NULL);
+			}
+			pthread_mutex_lock(&philo->check_times_eaten);
+			eaten = philo->times_eaten;
+			pthread_mutex_unlock(&philo->check_times_eaten);
+			if (get_current_time() > time && eaten >= data->t_eat)
+			{
+				printf("Died times eaten\n");
+				return (finish_simulation(philo, 1), NULL);
+			}
 		}
 		ft_usleep(1);
 	}

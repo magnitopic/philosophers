@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/12 17:43:11 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/13 09:20:30 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static t_philo	*create_philos(t_universe *data)
 			philos[i].fork_r = 0;
 		pthread_mutex_init(data->forks + i, NULL);
 		pthread_mutex_init(&(philos[i]).check_dying_time, NULL);
+		pthread_mutex_init(&(philos[i]).check_times_eaten, NULL);
 		philos[i].next_dying_time = get_current_time() + data->t_die;
 		philos[i].universe = data;
 	}
