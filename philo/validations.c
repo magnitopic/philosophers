@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 10:07:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/12 17:53:37 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/13 07:55:54 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,6 @@ int	check_finished(t_universe *data)
 	return (1);
 }
 
-int	check_times_eaten(t_philo *philo)
-{
-	int	meals;
-
-	pthread_mutex_lock(&philo->check_times_eaten);
-	meals = philo->times_eaten;
-	pthread_mutex_unlock(&philo->check_times_eaten);
-	if (meals >= philo->universe->t_eat)
-		return (1);
-	return (0);
-}
-
 void	*check_death(void *args)
 {
 	int			i;
@@ -71,7 +59,7 @@ void	*check_death(void *args)
 			pthread_mutex_lock(&philo->check_dying_time);
 			time = philo->next_dying_time;
 			pthread_mutex_unlock(&philo->check_dying_time);
-			if (get_current_time() > time)
+			if (get_current_time() > time && philo->times_eaten >= data->t_eat)
 				return (finish_simulation(philo, 1), NULL);
 		}
 		ft_usleep(1);

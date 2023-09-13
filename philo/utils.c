@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/12 15:04:59 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/13 07:52:55 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,6 @@ void	free_universe(t_universe *data, t_philo *philos)
 	{
 		pthread_mutex_destroy(&data->forks[i++]);
 		pthread_mutex_destroy(&data->philos->check_dying_time);
-		pthread_mutex_destroy(&data->philos->check_times_eaten);
 	}
 	pthread_mutex_destroy(&data->message);
 	pthread_mutex_destroy(&data->check_breaker);
