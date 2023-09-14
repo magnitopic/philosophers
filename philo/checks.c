@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validations.c                                      :+:      :+:    :+:   */
+/*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 10:07:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/13 09:56:51 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/14 11:34:13 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	*check_death(void *args)
 		{
 			philo = &(data->philos)[i++];
 			get_mutexed_values(philo, &time, &eaten);
-			if ((get_current_time() > time && eaten >= data->t_eat)
-				|| (get_current_time() > time && data->n_eat == -1))
+			if ((get_current_time() > time && eaten <= data->t_eat)
+				|| (get_current_time() > time && data->n_eat != -1))
 				return (finish_simulation(philo), NULL);
 		}
 		ft_usleep(1);

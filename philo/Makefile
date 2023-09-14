@@ -4,7 +4,7 @@ NAME				=	philo
 PHILO_SRC			=	utils.c \
 						parsing.c \
 						routines.c \
-						validations.c \
+						checks.c \
 						philo.c
 OBJS				=	$(PHILO_SRC:.c=.o)
 
