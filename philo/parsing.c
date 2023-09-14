@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 16:24:31 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/13 18:37:56 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/14 11:13:58 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ static int	ft_isdigit(char *c)
 		return (0);
 	while (c[i])
 	{
-		if (c[i] < '0' || c[i] > '9')
+		if ((c[i] < '0' || c[i] > '9') && c[i] != '+')
 			return (0);
 		i++;
 	}
-	if (i > 10)
+	if (i > 9)
 		return (0);
 	return (1);
 }
@@ -55,12 +55,11 @@ static int	check_empty(int argc, char **argv)
 {
 	int	i;
 
-	i = 1;
-	while (i < argc)
+	i = 0;
+	while (++i < argc)
 	{
 		if (!(argv[i][0]))
 			return (1);
-		i++;
 	}
 	return (0);
 }

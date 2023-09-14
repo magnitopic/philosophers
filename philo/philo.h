@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:26 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/13 09:50:06 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/14 11:17:03 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ typedef struct s_philo
 	struct s_universe	*universe;
 }	t_philo;
 
-/**
- * - breaker: flag for when the program ends
-*/
 typedef struct s_universe
 {
 	int				n_philos;
