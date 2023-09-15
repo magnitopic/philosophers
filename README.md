@@ -1,6 +1,6 @@
 # Philosophers 💭
 
-In this project, you will learn the basics of threading a process. You will see how to create threads and you will discover mutexes.
+In this project, you will learn the basics of threading a process. You will see how to create threads and you will discover mutexes[.](https://media.tenor.com/0pNzbykM1rEAAAAC/baffling.gif)
 
 <div align="center">
 	<img width="650px" alt="Philo" src="https://github.com/magnitopic/philosophers/assets/21156058/f0d09e7e-5d25-44fb-92fa-9e361ab098b8">
