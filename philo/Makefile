@@ -9,7 +9,7 @@ PHILO_SRC			=	utils.c \
 OBJS				=	$(PHILO_SRC:.c=.o)
 
 # Compiler
-CC					=	gcc
+CC					=	cc
 RM					=	rm -f
 CFLAGS				=	-Wall -Werror -Wextra -pthread #-g3 -fsanitize=thread
 

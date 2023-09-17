@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/13 07:52:55 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:27:50 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,8 @@ long	get_current_time(void)
 
 void	print_message(t_philo *philo, enum e_mssg mssg, long time)
 {
-	pthread_mutex_lock(&philo->universe->check_breaker);
-	if (!philo->universe->breaker)
-	{
-		pthread_mutex_unlock(&philo->universe->check_breaker);
+	if (check_finished(philo->universe))
 		return ;
-	}
-	pthread_mutex_unlock(&philo->universe->check_breaker);
 	pthread_mutex_lock(&philo->universe->message);
 	printf(COMMON, time, philo->pos);
 	if (mssg == FORK)

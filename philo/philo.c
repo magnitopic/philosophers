@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/13 09:20:30 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:29:41 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ static t_universe	*start_universe(char **argv)
 	if (!data)
 		return (NULL);
 	data->breaker = 1;
+	data->n_fin_eating = 0;
 	data->n_philos = ft_atoi(argv[1]);
 	data->t_die = ft_atoi(argv[2]);
 	data->t_eat = ft_atoi(argv[3]);
@@ -65,6 +66,7 @@ static t_universe	*start_universe(char **argv)
 	data->n_eat = -1;
 	if (argv[5])
 		data->n_eat = ft_atoi(argv[5]);
+	pthread_mutex_init(&data->check_fin_eating, NULL);
 	pthread_mutex_init(&data->message, NULL);
 	pthread_mutex_init(&data->check_breaker, NULL);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_philos);

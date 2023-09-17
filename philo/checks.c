@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 10:07:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/14 11:34:13 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/17 16:49:29 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,28 @@ int	check_finished(t_universe *data)
 	int	breaker;
 
 	pthread_mutex_lock(&data->check_breaker);
+	pthread_mutex_lock(&data->check_fin_eating);
 	breaker = data->breaker;
+	if (breaker && data->n_fin_eating == data->n_philos)
+		breaker = 0;
+	pthread_mutex_unlock(&data->check_fin_eating);
 	pthread_mutex_unlock(&data->check_breaker);
 	if (breaker)
 		return (0);
 	return (1);
+}
+
+void	check_finished_eating(t_universe *data, t_philo *philo)
+{
+	pthread_mutex_lock(&philo->check_times_eaten);
+	philo->times_eaten++;
+	pthread_mutex_unlock(&philo->check_times_eaten);
+	if (data->n_eat != -1 && philo->times_eaten == data->n_eat)
+	{
+		pthread_mutex_lock(&data->check_fin_eating);
+		data->n_fin_eating++;
+		pthread_mutex_unlock(&data->check_fin_eating);
+	}
 }
 
 static void	get_mutexed_values(t_philo *philo, long *time, int *eaten)
@@ -65,8 +82,7 @@ void	*check_death(void *args)
 		{
 			philo = &(data->philos)[i++];
 			get_mutexed_values(philo, &time, &eaten);
-			if ((get_current_time() > time && eaten <= data->t_eat)
-				|| (get_current_time() > time && data->n_eat != -1))
+			if (get_current_time() > time)
 				return (finish_simulation(philo), NULL);
 		}
 		ft_usleep(1);
