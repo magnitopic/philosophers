@@ -44,7 +44,7 @@ Example with some tight timing
 ./philo 5 310 103 103
 ```
 
-Example using pipes to count number of times eaten. 5 philos times 7 times to eat, the result should be 35
+Example using pipes to count number of times eaten. 5 philos times 7 times to eat, the result should be 35 at least
 
 ```bash
 ./philo 5 800 200 200 7 | grep "eating" | wc -l
