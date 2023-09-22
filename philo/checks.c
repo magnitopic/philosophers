@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/08 10:07:46 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/17 16:49:29 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/22 08:01:06 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,23 +56,12 @@ void	check_finished_eating(t_universe *data, t_philo *philo)
 	}
 }
 
-static void	get_mutexed_values(t_philo *philo, long *time, int *eaten)
-{
-	pthread_mutex_lock(&philo->check_dying_time);
-	*time = philo->next_dying_time;
-	pthread_mutex_unlock(&philo->check_dying_time);
-	pthread_mutex_lock(&philo->check_times_eaten);
-	*eaten = philo->times_eaten;
-	pthread_mutex_unlock(&philo->check_times_eaten);
-}
-
 void	*check_death(void *args)
 {
 	int			i;
 	long		time;
 	t_universe	*data;
 	t_philo		*philo;
-	int			eaten;
 
 	data = (t_universe *)args;
 	while (!check_finished(data))
@@ -81,7 +70,9 @@ void	*check_death(void *args)
 		while (i < data->n_philos)
 		{
 			philo = &(data->philos)[i++];
-			get_mutexed_values(philo, &time, &eaten);
+			pthread_mutex_lock(&philo->check_dying_time);
+			time = philo->next_dying_time;
+			pthread_mutex_unlock(&philo->check_dying_time);
 			if (get_current_time() > time)
 				return (finish_simulation(philo), NULL);
 		}

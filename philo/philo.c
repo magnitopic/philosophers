@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 09:06:33 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/17 16:29:41 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/22 07:58:12 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int	main(int argc, char **argv)
 	t_universe	*data;
 	t_philo		*philos;
 
-	(void)argv;
 	if (parsing(argc, argv))
 		return (1);
 	data = start_universe(argv);

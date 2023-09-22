@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/17 16:27:50 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/22 07:59:31 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ int	ft_atoi(const char *str)
 		num = num * 10 + (*str - '0');
 		str++;
 	}
-	if (num > 9223372036854775807 && sign == 1)
+	if (num > LONG_MAX && sign == 1)
 		return (-1);
-	else if (num > 9223372036854775807 && sign == -1)
-		return (0);
+	else if (num > LONG_MAX && sign == -1)
+		return (0); 
 	return (sign * num);
 }
 
@@ -79,13 +79,13 @@ void	free_universe(t_universe *data, t_philo *philos)
 	int	i;
 
 	i = 0;
-	ft_usleep(50);
 	while (i < data->n_philos)
 	{
 		pthread_mutex_destroy(&data->forks[i++]);
 		pthread_mutex_destroy(&data->philos->check_dying_time);
 	}
 	pthread_mutex_destroy(&data->message);
+	pthread_mutex_destroy(&data->check_breaker);
 	pthread_mutex_destroy(&data->check_breaker);
 	free(data->forks);
 	free(data);
