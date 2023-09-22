@@ -6,7 +6,7 @@
 /*   By: alaparic <alaparic@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 16:18:16 by alaparic          #+#    #+#             */
-/*   Updated: 2023/09/22 07:59:31 by alaparic         ###   ########.fr       */
+/*   Updated: 2023/09/22 09:30:08 by alaparic         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,15 +78,16 @@ void	free_universe(t_universe *data, t_philo *philos)
 {
 	int	i;
 
-	i = 0;
-	while (i < data->n_philos)
+	i = -1;
+	while (++i < data->n_philos)
 	{
-		pthread_mutex_destroy(&data->forks[i++]);
-		pthread_mutex_destroy(&data->philos->check_dying_time);
+		pthread_mutex_destroy(&data->forks[i]);
+		pthread_mutex_destroy(&(data->philos[i]).check_dying_time);
+		pthread_mutex_destroy(&(data->philos[i]).check_times_eaten);
 	}
 	pthread_mutex_destroy(&data->message);
 	pthread_mutex_destroy(&data->check_breaker);
-	pthread_mutex_destroy(&data->check_breaker);
+	pthread_mutex_destroy(&data->check_fin_eating);
 	free(data->forks);
 	free(data);
 	free(philos);
